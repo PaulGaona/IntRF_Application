@@ -19,7 +19,7 @@ set1 <- function(n = NA,
   Yr <- .25 * Xr + epsr # response of range
   for (i in seq_along(Yr)) {
     while (Yr[i] < 0) {
-      Yr[i] <- .25 * runif(length(Yc[i]), Xr_a, Xr_b) + rnorm(length(Yc[i]), er_a, er_b)
+      Yr[i] <- .25 * runif(length(Yr[i]), Xr_a, Xr_b) + rnorm(length(Yr[i]), er_a, er_b)
     }
   }
   # storing center and range values for predictor and response

@@ -11,10 +11,10 @@ set5 <- function(n = NA,
   errr <- rnorm(n, er_a, er_b) # error of range
   # equations
   Yc <- 10 * sin(.15 * pi * Xc) + errc # response of center
-  Yr <- 2 * Xr + .5 + errr # response of range
+  Yr <- Xr + .5 + errr # response of range
   for (i in seq_along(Yr)) {
     while (Yr[i] < 0 || is.na(Yr[i])) {
-      Yr[i] <- 2 * (runif(length(Yr[i]), Xr_a, Xr_b)) + .5 + rnorm(length(Yr[i]), er_a, er_b)
+      Yr[i] <- (runif(length(Yr[i]), Xr_a, Xr_b)) + .5 + rnorm(length(Yr[i]), er_a, er_b)
     }
   }
   # storing center and range values for predictor and response

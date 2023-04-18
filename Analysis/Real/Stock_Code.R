@@ -7,8 +7,6 @@ library(tidyverse)
 # functions for code comparisons
 # provides a function for the interaction random forest
 library(IntRF.thesis)
-# provides a function for recursive partitioning
-library(mvpart)
 # provides a function for random forests
 library(randomForest)
 # provides a function for interactive regression

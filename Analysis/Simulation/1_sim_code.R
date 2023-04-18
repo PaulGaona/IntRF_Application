@@ -9,18 +9,15 @@ library("IntRF.thesis")
 
 # Set up simulation parameters
 n_vec <- c(100, 250, 500) # Sample sizes to simulate
-mc_sim <- 100 # Number of Monte Carlo simulations to run
+mc_sim <- 1 # Number of Monte Carlo simulations to run
 
 # Initialize empty list to store results
-all_res <- vector("list", length(n_vec))
-names(all_res) <- paste("n =", n_vec)
-
+all_resX <- vector("list", length(n_vec))
+names(all_resX) <- paste("n =", n_vec)
 # Loop over all elements of the n_vec vector
-for (i in seq(all_res)) {
-  #
-  set.seed(1)
+for (i in seq(all_resX)) {
   # Generate a list of simulated data sets for each of the 7 different settings
-  list_sims <- list(
+  list_simsX <- list(
     Setting1 = replicate(n = mc_sim, expr = set1(
       n = n_vec[i],
       Xc_a = 12, Xc_b = 3,
@@ -33,27 +30,27 @@ for (i in seq(all_res)) {
       Xc_a = -5, Xc_b = 10,
       ec_a = 0, ec_b = 2,
       Xr_a = 1, Xr_b = 2,
-      er_a = 0, er_b = .25
+      er_a = 0, er_b = .5
     )),
     Setting3 = replicate(n = mc_sim, expr = set3(
       n = n_vec[i],
-      Xc_a = 5, Xc_b = 1.25,
-      ec_a = 0, ec_b = 2,
+      Xc_a = 5, Xc_b = 1,
+      ec_a = 0, ec_b = 5,
       Xr_a = .1, Xr_b = .25,
-      er_a = 0, er_b = .05
+      er_a = 0, er_b = 1
     )),
     Setting4 = replicate(n = mc_sim, expr = set4(
       n = n_vec[i],
       Xc_a = 12, Xc_b = 4,
       ec_a = 0, ec_b = 2,
-      Xr_a = .25, Xr_b = .5,
-      er_a = 0, er_b = .1
+      Xr_a = .5, Xr_b = 2,
+      er_a = 0, er_b = .25
     )),
     Setting5 = replicate(n = mc_sim, expr = set5(
       n = n_vec[i],
       Xc_a = 5, Xc_b = 5,
       ec_a = 0, ec_b = 2,
-      Xr_a = .25, Xr_b = 1,
+      Xr_a = .25, Xr_b = 1.5,
       er_a = 0, er_b = .25
     )),
     Setting6 = replicate(n = mc_sim, expr = set6(
@@ -87,23 +84,22 @@ for (i in seq(all_res)) {
   )
 
   # Convert the list of simulations into a list of data frames
-  list_sims_df <- lapply(list_sims, data.frame)
+  list_sims_dfX <- lapply(list_simsX, data.frame)
 
   # Convert each element of the list of data frames into a nested
   # list of data frames
-  list_sims_df2 <- lapply(list_sims_df, function(x) {
+  list_sims_df2X <- lapply(list_sims_dfX, function(x) {
     lapply(x, data.frame)
   })
 
   # Call the auto_models function on each nested list of data frames
   # and store the results in a list
   set.seed(1)
-  list_models <- lapply(list_sims_df2, function(x) {
+  list_modelsX <- lapply(list_sims_df2X, function(x) {
     lapply(x, auto_models)
   })
 
   # Store the results for the i-th simulation in the i-th element of
   # the all_res list
-  all_res[[i]] <- list_res(list_models)
+  all_resX[[i]] <- list_res(list_modelsX)
 }
-all_res

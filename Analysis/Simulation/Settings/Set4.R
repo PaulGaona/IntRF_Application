@@ -19,7 +19,12 @@ set4 <- function(n = NA,
   cdf <- pnorm(Xr, cdf_a, cdf_b)
   # equations
   Yc <- 10 * log(Xc) + 10 + epsc # response of center
-  Yr <- 5 * sqrt(Xr) + epsr # response of range
+  for (i in seq_along(Yc)) {
+    while (Yc[i] < 0) {
+      Yc[i] <- 10 * rnorm(length(Yc[i]), Xc_a, Xc_b) + 10 + rnorm(length(Yc[i]), ec_a, ec_b)
+    }
+  }
+  Yr <- 2.5 * sqrt(Xr) + epsr # response of range
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
 }

@@ -11,7 +11,7 @@ set2 <- function(n = NA,
   epsr <- rnorm(n, er_a, er_b) # error of range
   # equations
   Yc <- -Xc + 50 + epsc # response of center
-  Yr <- -2*Xr + 25 + epsr # response of range
+  Yr <- -2*Xr + 5 + epsr # response of range
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
 }
