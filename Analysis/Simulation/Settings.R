@@ -27,11 +27,7 @@ set1 <- function(n = NA,
   }
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
+  df
 }
 ################################################################################
 # Setting 2
@@ -52,11 +48,7 @@ set2 <- function(n = NA,
   Yr <- -2*Xr + 5 + epsr # response of range
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
+  df
 }
 ################################################################################
 # Setting 3
@@ -82,11 +74,7 @@ set3 <- function(n = NA,
   Yr <- 1/(20*Xr^2)+ 1 + epsr
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
+  df
 }
 ################################################################################
 # Setting 4
@@ -114,52 +102,18 @@ set4 <- function(n = NA,
   Yc <- 10 * log(Xc) + 10 + epsc # response of center
   for (i in seq_along(Yc)) {
     while (Yc[i] < 0) {
-      Yc[i] <- 10 * rnorm(length(Yc[i]), Xc_a, Xc_b) + 10 + rnorm(length(Yc[i]), ec_a, ec_b)
+      Yc[i] <- 10 * log(rnorm(length(Yc[i]), Xc_a, Xc_b)) + 10 + rnorm(length(Yc[i]), ec_a, ec_b)
     }
   }
   Yr <- 2.5 * sqrt(Xr) + epsr # response of range
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
+  df
 }
 ################################################################################
 # Setting 5
 ################################################################################
 set5 <- function(n = NA,
-                 Xc_a = NA, Xc_b = NA,
-                 ec_a = NA, ec_b = NA,
-                 Xr_a = NA, Xr_b = NA,
-                 er_a = NA, er_b = NA) {
-  # center
-  Xc <- rnorm(n, Xc_a, Xc_b) # predictor of center
-  errc <- rnorm(n, ec_a, ec_b) # error of center
-  # range
-  Xr <- runif(n, Xr_a, Xr_b) # predictor of range
-  errr <- rnorm(n, er_a, er_b) # error of range
-  # equations
-  Yc <- 10 * sin(.15 * pi * Xc) + errc # response of center
-  Yr <- Xr + .5 + errr # response of range
-  for (i in seq_along(Yr)) {
-    while (Yr[i] < 0 || is.na(Yr[i])) {
-      Yr[i] <- (runif(length(Yr[i]), Xr_a, Xr_b)) + .5 + rnorm(length(Yr[i]), er_a, er_b)
-    }
-  }
-  # storing center and range values for predictor and response
-  df <- data.frame(Xc, Xr, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
-}
-################################################################################
-# Setting 6
-################################################################################
-set6 <- function(n = NA,
                  Xc_a = NA, Xc_b = NA,
                  ec_a = NA, ec_b = NA,
                  Xr_a = NA, Xr_b = NA,
@@ -180,11 +134,33 @@ set6 <- function(n = NA,
   }
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
+  df
+}
+################################################################################
+# Setting 6
+################################################################################
+set6 <- function(n = NA,
+                 Xc_a = NA, Xc_b = NA,
+                 ec_a = NA, ec_b = NA,
+                 Xr_a = NA, Xr_b = NA,
+                 er_a = NA, er_b = NA) {
+  # center
+  Xc <- rnorm(n, Xc_a, Xc_b) # predictor of center
+  for (i in seq_along(Xc)) {
+    while (Xc[i] < 0) {
+      Xc[i] <- rnorm(length(Xc[i]), Xc_a, Xc_b)
+    }
+  }
+  errc <- rnorm(n, ec_a, ec_b) # error of center
+  # range
+  Xr <- runif(n, Xr_a, Xr_b) # predictor of range
+  errr <- rnorm(n, er_a, er_b) # error of range
+  # equations
+  Yc <- -(Xc - 8)^2 + 32 + errc # response of center
+  Yr <- (.5*exp(Xr))*(sqrt(Xc)/8) + errr # response of range
+  # storing center and range values for predictor and response
+  df <- data.frame(Xc, Xr, Yc, Yr)
+  df
 }
 ################################################################################
 # Setting 7
@@ -239,9 +215,5 @@ set7 <- function(n = NA,
   Yc <- ((Xc1 + (Xc1)^2) * (Xc2 + (Xc2)^2)) - ((Xc3 + (Xc3)^2) * (Xc4 + (Xc4)^2)) - Xc5 + ec
   Yr <- (.2 * Xr2)^2 + .1 * Xr3 - 5 * (Xr1 * Xr4 + Xr5) + 4 + er
   df <- data.frame(Xc1, Xr1, Xc2, Xr2, Xc3, Xr3, Xc4, Xr4, Xc5, Xr5, Yc, Yr)
-  df_s <- as.data.frame(scale(df,
-    center = F,
-    scale = apply(df, 2, sd, na.rm = TRUE)
-  ))
-  df_s
+  df
 }

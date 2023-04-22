@@ -8,7 +8,7 @@ library("tidyverse")
 library("IntRF.thesis")
 
 # Set up simulation parameters
-n_vec <- c(100, 250, 500) # Sample sizes to simulate
+n_vec <- c(500)#, 250, 500) # Sample sizes to simulate
 mc_sim <- 1 # Number of Monte Carlo simulations to run
 
 # Initialize empty list to store results
@@ -21,43 +21,43 @@ for (i in seq(all_resX)) {
     Setting1 = replicate(n = mc_sim, expr = set1(
       n = n_vec[i],
       Xc_a = 12, Xc_b = 3,
-      ec_a = 0, ec_b = 1,
+      ec_a = 0, ec_b = 3/4,
       Xr_a = 1, Xr_b = 3,
-      er_a = 0, er_b = .05
+      er_a = 0, er_b = 1/20
     )),
     Setting2 = replicate(n = mc_sim, expr = set2(
       n = n_vec[i],
       Xc_a = -5, Xc_b = 10,
-      ec_a = 0, ec_b = 2,
+      ec_a = 0, ec_b = 10/4,
       Xr_a = 1, Xr_b = 2,
-      er_a = 0, er_b = .5
+      er_a = 0, er_b = 1/10
     )),
     Setting3 = replicate(n = mc_sim, expr = set3(
       n = n_vec[i],
       Xc_a = 5, Xc_b = 1,
-      ec_a = 0, ec_b = 5,
+      ec_a = 0, ec_b = 1,
       Xr_a = .1, Xr_b = .25,
-      er_a = 0, er_b = 1
+      er_a = 0, er_b = 0.25
     )),
     Setting4 = replicate(n = mc_sim, expr = set4(
       n = n_vec[i],
       Xc_a = 12, Xc_b = 4,
-      ec_a = 0, ec_b = 2,
+      ec_a = 0, ec_b = 1,
       Xr_a = .5, Xr_b = 2,
-      er_a = 0, er_b = .25
+      er_a = 0, er_b = .5/4
     )),
     Setting5 = replicate(n = mc_sim, expr = set5(
       n = n_vec[i],
-      Xc_a = 5, Xc_b = 5,
-      ec_a = 0, ec_b = 2,
-      Xr_a = .25, Xr_b = 1.5,
-      er_a = 0, er_b = .25
+      Xc_a = 3, Xc_b = 2,
+      ec_a = 0, ec_b = 1.5,
+      Xr_a = 0.5, Xr_b = 1,
+      er_a = 0, er_b = 1/16
     )),
     Setting6 = replicate(n = mc_sim, expr = set6(
       n = n_vec[i],
-      Xc_a = 3, Xc_b = 2,
-      ec_a = 2, ec_b = 1.5,
-      Xr_a = 0.5, Xr_b = 1,
+      Xc_a = 8, Xc_b = 2,
+      ec_a = 0, ec_b = 1,
+      Xr_a = 0, Xr_b = 1,
       er_a = 0, er_b = 0.25
     )),
     Setting7 = replicate(n = mc_sim, expr = set7(
@@ -103,3 +103,4 @@ for (i in seq(all_resX)) {
   # the all_res list
   all_resX[[i]] <- list_res(list_modelsX)
 }
+all_resX

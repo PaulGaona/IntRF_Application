@@ -15,11 +15,11 @@ source("./Analysis/Simulation/Settings/set7.R")
 set.seed(1)
 # Setting 4 data simulating
 df_set4 <- set4(
-  n = 100,
+  n = 500,
   Xc_a = 12, Xc_b = 4,
-  ec_a = 0, ec_b = 2,
-  Xr_a = .5, Xr_b = 1.5,
-  er_a = 0, er_b = .25
+  ec_a = 0, ec_b = 4/2,
+  Xr_a = .5, Xr_b = 2,
+  er_a = 0, er_b = .5/4
 )
 # Plot Y vs X
 set4_p <- IntRF.thesis::int_plot(
@@ -51,10 +51,10 @@ set.seed(1)
 
 df_set5 <- set5(
   n = 250,
-  Xc_a = 5, Xc_b = 5,
-  ec_a = 0, ec_b = 2,
-  Xr_a = .25, Xr_b = 1.5,
-  er_a = 0, er_b = .25
+  Xc_a = 3, Xc_b = 2,
+  ec_a = 0, ec_b = 1.5,
+  Xr_a = 0.5, Xr_b = 1,
+  er_a = 0, er_b = .5/4
 )
 # Plot Y vs X
 set5_p <- IntRF.thesis::int_plot(
@@ -86,9 +86,9 @@ set5_p <- IntRF.thesis::int_plot(
 
 df_set6 <- set6(
   n = 500,
-  Xc_a = 3, Xc_b = 2,
-  ec_a = 2, ec_b = 1.5,
-  Xr_a = 0.5, Xr_b = 1,
+  Xc_a = 8, Xc_b = 2,
+  ec_a = 0, ec_b = 1,
+  Xr_a = 0, Xr_b = 1,
   er_a = 0, er_b = 0.25
 )
 # Plot Y vs X

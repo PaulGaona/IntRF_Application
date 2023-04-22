@@ -10,13 +10,13 @@ set6 <- function(n = NA,
   Xr <- runif(n, Xr_a, Xr_b) # predictor of range
   errr <- rnorm(n, er_a, er_b) # error of range
   # equations
-  Yc <- 10 * sin(.5*pi * Xc)+ 20 + errc # response of center
-  Yr <- tan(Xr) + errr # response of range
-  for (i in seq_along(Yr)) {
-    while (Yr[i] < 0) {
-      Yr[i] <- tan(runif(length(Yr[i]), Xr_a, Xr_b) + rnorm(length(Yr[i]), er_a, er_b))
+  Yc <- -(Xc - 8)^2 + 32 + errc # response of center
+  for (i in seq_along(Yc)) {
+    while (Yc[i] < 0) {
+      Yc[i] <- -(rnorm(length(Yc[i]), Xc_a, Xc_b) - 8)^2 + 32 + rnorm(length(Yc[i]), ec_a, ec_b)
     }
   }
+  Yr <- (.5*exp(Xr))*(sqrt(Xc)/8) + errr # response of range
   # storing center and range values for predictor and response
   df <- data.frame(Xc, Xr, Yc, Yr)
 }

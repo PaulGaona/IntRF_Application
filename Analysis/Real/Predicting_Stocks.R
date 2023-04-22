@@ -15,8 +15,8 @@
 # train data
 
 # Load in the training and testing data for the selected stock
-price_train_jpm <- price_train[c(4, 10, 1, 7)]
-price_test_jpm <- price_test[c(4, 10, 1, 7)]
+price_train_jpm <- price_train_stand[c(4, 10, 1, 7)]
+price_test_jpm <- price_test_stand[c(4, 10, 1, 7)]
 
 # Split the training data into the response variable (price) and
 # predictor variables (center and range values)
@@ -64,7 +64,7 @@ met_irf_jpm
 
 # Use the mvpart function to train an interval regression tree model
 set.seed(1)
-ydat_jpm <- price_train[names(yprice_train_jpm)]
+ydat_jpm <- price_train_stand[names(yprice_train_jpm)]
 irt_jpm <- IntRF.thesis::mvpart(data.matrix(ydat_jpm) ~ .,
                           data = price_train_jpm,
                           plot.add = FALSE,
@@ -72,8 +72,8 @@ irt_jpm <- IntRF.thesis::mvpart(data.matrix(ydat_jpm) ~ .,
 )
 
 # Make predictions using the model on the testing data
-ctpred_jpm <- predict(irt_jpm, newdata = price_test, type = "matrix")[, 1]
-rtpred_jpm <- predict(irt_jpm, newdata = price_test, type = "matrix")[, 2]
+ctpred_jpm <- predict(irt_jpm, newdata = price_test_jpm, type = "matrix")[, 1]
+rtpred_jpm <- predict(irt_jpm, newdata = price_test_jpm, type = "matrix")[, 2]
 
 # Calculate accuracy metrics for the model
 met_tree_jpm <- IntRF.thesis::acc_met(
@@ -165,8 +165,8 @@ combined_res_jpm
 # train data
 
 # Load in the training and testing data for the selected stock
-price_train_ba <- price_train[c(5, 11, 1, 7)]
-price_test_ba <- price_test[c(5, 11, 1, 7)]
+price_train_ba <- price_train_stand[c(5, 11, 1, 7)]
+price_test_ba <- price_test_stand[c(5, 11, 1, 7)]
 
 # Split the training data into the response variable (price) and
 # predictor variables (center and range values)
@@ -214,15 +214,15 @@ met_irf_ba
 
 # Use the mvpart function to train an interval regression tree model
 set.seed(1)
-ydat_ba <- price_train[names(yprice_train_ba)]
+ydat_ba <- price_train_ba[names(yprice_train_ba)]
 irt_ba <- IntRF.thesis::mvpart(data.matrix(ydat_ba) ~ .,
                          data = price_train_ba,
                          plot.add = FALSE,
                          xv = "none"
 )
 # Make predictions using the model on the testing data
-ctpred_ba <- predict(irt_ba, newdata = price_test, type = "matrix")[, 1]
-rtpred_ba <- predict(irt_ba, newdata = price_test, type = "matrix")[, 2]
+ctpred_ba <- predict(irt_ba, newdata = price_test_ba, type = "matrix")[, 1]
+rtpred_ba <- predict(irt_ba, newdata = price_test_ba, type = "matrix")[, 2]
 
 # Calculate accuracy metrics for the model
 met_tree_ba <- IntRF.thesis::acc_met(
@@ -321,8 +321,8 @@ combined_res_ba
 # train data
 
 # Load in the training and testing data for the selected stock
-price_train_ge <- price_train[c(2, 8, 1, 7)]
-price_test_ge <- price_test[c(2, 8, 1, 7)]
+price_train_ge <- price_train_stand[c(2, 8, 1, 7)]
+price_test_ge <- price_test_stand[c(2, 8, 1, 7)]
 
 # Split the training data into the response variable (price) and
 # predictor variables (center and range values)
@@ -370,7 +370,7 @@ met_irf_ge
 
 # Use the mvpart function to train an interval regression tree model
 set.seed(1)
-ydat_ge <- price_train[names(yprice_train_ge)]
+ydat_ge <- price_train_ge[names(yprice_train_ge)]
 irt_ge <- IntRF.thesis::mvpart(data.matrix(ydat_ge) ~ .,
   data = price_train_ge,
   plot.add = FALSE,
@@ -378,8 +378,8 @@ irt_ge <- IntRF.thesis::mvpart(data.matrix(ydat_ge) ~ .,
 )
 
 # Make predictions using the model on the testing data
-ctpred_ge <- predict(irt_ge, newdata = price_test, type = "matrix")[, 1]
-rtpred_ge <- predict(irt_ge, newdata = price_test, type = "matrix")[, 2]
+ctpred_ge <- predict(irt_ge, newdata = price_test_ge, type = "matrix")[, 1]
+rtpred_ge <- predict(irt_ge, newdata = price_test_ge, type = "matrix")[, 2]
 
 # Calculate accuracy metrics for the model
 met_tree_ge <- IntRF.thesis::acc_met(

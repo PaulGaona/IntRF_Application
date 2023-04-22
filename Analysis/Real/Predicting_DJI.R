@@ -12,8 +12,8 @@ int_price_rf <- IntRF.thesis::intrf(
   int_resp = yprice_train,
   cent_pred = xcprice_train,
   ran_pred = xrprice_train,
-  train = price_train,
-  test = price_test,
+  train = price_train_stand ,
+  test = price_test_stand ,
   mtry_int = ncol(xcprice_train)
 )
 
@@ -34,14 +34,14 @@ met_irf_dji
 # Perform mvpart model for Int Tree and obtain predictions
 set.seed(1)
 
-ydat <- price_train[names(yprice_train)]
+ydat <- price_train_stand[names(yprice_train)]
 irt <- IntRF.thesis::mvpart(data.matrix(ydat) ~ .,
-  data = price_train,
+  data = price_train_stand ,
   plot.add = FALSE,
   xv = "none"
 )
-ctpred <- predict(irt, newdata = price_test, type = "matrix")[, 1]
-rtpred <- predict(irt, newdata = price_test, type = "matrix")[, 2]
+ctpred <- predict(irt, newdata = price_test_stand, type = "matrix")[, 1]
+rtpred <- predict(irt, newdata = price_test_stand, type = "matrix")[, 2]
 
 # Obtain accuracy metrics for Int Tree
 met_tree_dji <- IntRF.thesis::acc_met(
@@ -57,10 +57,10 @@ met_tree_dji
 
 # Perform randomForest model for RF and obtain predictions
 set.seed(1)
-crf <- randomForest(c.DJI ~ ., data = dplyr::select(price_train, -c(r.DJI)))
-rrf <- randomForest(r.DJI ~ ., data = dplyr::select(price_train, -c(c.DJI)))
-pcrf <- predict(crf, price_test)
-prrf <- predict(rrf, price_test)
+crf <- randomForest(c.DJI ~ ., data = dplyr::select(price_train_stand , -c(r.DJI)))
+rrf <- randomForest(r.DJI ~ ., data = dplyr::select(price_train_stand , -c(c.DJI)))
+pcrf <- predict(crf, price_test_stand)
+prrf <- predict(rrf, price_test_stand)
 
 # Obtain accuracy metrics for RF
 met_rf_dji <- acc_met(
@@ -79,14 +79,14 @@ set.seed(1)
 
 simccrm <- ccrm("c.DJI ~ c.GE+c.PG+c.JPM+c.BA+c.MSFT",
   "r.DJI ~ r.GE+r.PG+r.JPM+r.BA+r.MSFT",
-  data = price_train
+  data = price_train_stand
 )
 
 pred_ccrm <- ccrm_pred(
   cent_coef = simccrm[[1]],
-  cent_pred = as.matrix(price_test[2:6]),
+  cent_pred = as.matrix(price_test_stand[2:6]),
   ran_coef = simccrm[[5]],
-  ran_pred = as.matrix(price_test[8:12])
+  ran_pred = as.matrix(price_test_stand[8:12])
 )
 
 # Obtain accuracy metrics for ccrm

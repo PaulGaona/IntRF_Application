@@ -48,17 +48,21 @@ s_prices <- as.data.frame(scale(prices,
 set.seed(1)
 # create a sample index for training data
 samp <- sort(sample(nrow(s_prices), nrow(s_prices) * .8))
-price_train <- s_prices[samp, ] # select training data
-price_test <- s_prices[-samp, ] # select testing data
+price_train <- prices[samp, ] # select training data
+price_test <- prices[-samp, ] # select testing data
+price_sd <- apply(price_train, 2, sd, na.rm = TRUE)
+# standardizing training and testing
+price_train_stand <- sweep(price_train,2,price_sd,FUN="/")
+price_test_stand <- sweep(price_test,2,price_sd,FUN="/")
 
 # train data
 # select dependent variables for training data
-yprice_train <- price_train[c(1, 7)]
+yprice_train <- price_train_stand[c(1, 7)]
 # select independent variables related to center for training data
-xcprice_train <- price_train[2:6]
+xcprice_train <- price_train_stand[2:6]
 # select independent variables related to range for training data
-xrprice_train <- price_train[8:12]
+xrprice_train <- price_train_stand[8:12]
 
 # test data
 # select dependent variables for testing data
-yprice_test <- price_test[c(1, 7)]
+yprice_test <- price_test_stand[c(1, 7)]

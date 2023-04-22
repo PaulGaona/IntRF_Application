@@ -1,8 +1,12 @@
 auto_models <- function(df, dat_perc = .8){
   # data split
-  sample <- sample(x = 1:nrow(df), size = floor(dat_perc*nrow(df)), replace = F)
-  dftrain <- df[sample,]
-  dftest <- df[-sample,]
+  dfsample <- sample(x = 1:nrow(df), size = floor(dat_perc*nrow(df)), replace = F)
+  dummy_train <- df[dfsample,]
+  dummy_test <- df[-dfsample,]
+  dummy_sd <- apply(dummy_train, 2, sd, na.rm = TRUE)
+  # actual testing and training split with standardization
+  dftrain <- sweep(dummy_train, 2, dummy_sd, FUN="/")
+  dftest <- sweep(dummy_test, 2, dummy_sd, FUN="/")
   # train
   ytrain <- dftrain %>% dplyr::select(starts_with("Y"))
   xctrain <- dftrain %>% dplyr::select(starts_with("Xc"))
@@ -22,7 +26,7 @@ auto_models <- function(df, dat_perc = .8){
                              test = dftest,
                              mtry_int = ncol(xctrain))
   # obtain results
-  irf_res <- irf$Results
+  irf_res <- as.data.frame(irf$Results)
   # obtain accuracy metrics
   met_irf <- IntRF.thesis::acc_met(cent_pred = irf_res$center_pred,
                                       cent_act = irf_res$center_actual,
