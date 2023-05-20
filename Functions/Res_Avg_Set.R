@@ -25,7 +25,7 @@ list_res <- function(list_data){
     do.call(cbind,x)
   })
   com_res2 <- lapply(com_res, function(x){
-    round(x,3)
+    round(x,2)
   })
   for (i in seq(com_res2)) {
     colnames(com_res2[[i]])<- c("IRF","Tree",

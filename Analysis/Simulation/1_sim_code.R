@@ -5,7 +5,7 @@ source("./Functions/Dat_Split.R")
 source("./Functions/Res_Avg_Set.R")
 source("./Functions/CCRM_Pred.R")
 library("tidyverse")
-library("IntRF.thesis")
+library("IntRF")
 
 # Set up simulation parameters
 n_vec <- c(500)#, 250, 500) # Sample sizes to simulate

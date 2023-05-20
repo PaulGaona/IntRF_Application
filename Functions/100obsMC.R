@@ -5,7 +5,7 @@ source("./Functions/Res_Avg_Set.R")
 source("./Functions/CCRM_Pred.R")
 library(tidyverse)
 library(tictoc)
-library("IntRF.thesis")
+library("IntRF")
 set.seed(1)
 # Data Generating
 # scale all data by variances

@@ -1,14 +1,14 @@
 # Data from Stock_Code.R
 
 # Load required packages and set seed value
-library(IntRF.thesis)
+library(IntRF)
 library(randomForest)
 library(iRegression)
 
 # Perform intrf model for Int RF and obtain results
 set.seed(1)
 
-int_price_rf <- IntRF.thesis::intrf(
+int_price_rf <- IntRF::intrf(
   int_resp = yprice_train,
   cent_pred = xcprice_train,
   ran_pred = xrprice_train,
@@ -20,7 +20,7 @@ int_price_rf <- IntRF.thesis::intrf(
 res <- int_price_rf$Results
 
 # Obtain accuracy metrics for Int RF
-met_irf_dji <- IntRF.thesis::acc_met(
+met_irf_dji <- IntRF::acc_met(
   cent_pred = res$center_pred,
   cent_act = res$center_actual,
   ran_pred = res$range_pred,
@@ -35,7 +35,7 @@ met_irf_dji
 set.seed(1)
 
 ydat <- price_train_stand[names(yprice_train)]
-irt <- IntRF.thesis::mvpart(data.matrix(ydat) ~ .,
+irt <- IntRF::mvpart(data.matrix(ydat) ~ .,
   data = price_train_stand ,
   plot.add = FALSE,
   xv = "none"
@@ -44,7 +44,7 @@ ctpred <- predict(irt, newdata = price_test_stand, type = "matrix")[, 1]
 rtpred <- predict(irt, newdata = price_test_stand, type = "matrix")[, 2]
 
 # Obtain accuracy metrics for Int Tree
-met_tree_dji <- IntRF.thesis::acc_met(
+met_tree_dji <- IntRF::acc_met(
   ctpred,
   t(yprice_test[1]),
   rtpred,

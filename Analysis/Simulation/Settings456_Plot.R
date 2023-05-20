@@ -1,17 +1,11 @@
 # Load necessary packages
 library("ggplot2")
 library("dplyr")
-library("IntRF.thesis")
+library("IntRF")
 library("ggpubr")
 library("scales")
 library("gridExtra")
-source("./Analysis/Simulation/Settings/set1.R")
-source("./Analysis/Simulation/Settings/set2.R")
-source("./Analysis/Simulation/Settings/set3.R")
-source("./Analysis/Simulation/Settings/set4.R")
-source("./Analysis/Simulation/Settings/set5.R")
-source("./Analysis/Simulation/Settings/set6.R")
-source("./Analysis/Simulation/Settings/set7.R")
+source("./Analysis/Simulation/Settings.R")
 set.seed(1)
 # Setting 4 data simulating
 df_set4 <- set4(
@@ -22,7 +16,7 @@ df_set4 <- set4(
   er_a = 0, er_b = .5/4
 )
 # Plot Y vs X
-set4_p <- IntRF.thesis::int_plot(
+set4_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   int_data = df_set4 %>%
     select(Yc, Yr, Xc, Xr),
@@ -44,6 +38,12 @@ set4_p <- IntRF.thesis::int_plot(
       max(df_set4$Yc + df_set4$Yr)+1 # Set upper limit of y-axis
     ),
     n.breaks = 8 # Set number of y-axis breaks to 8
+  ) +
+  theme(
+    axis.title.x = element_text(size = 16),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.text.y = element_text(size = 14)
   )
 
 # Setting 5 data simulating
@@ -57,7 +57,7 @@ df_set5 <- set5(
   er_a = 0, er_b = .5/4
 )
 # Plot Y vs X
-set5_p <- IntRF.thesis::int_plot(
+set5_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   int_data = df_set5 %>%
     select(Yc, Yr, Xc, Xr),
@@ -79,6 +79,12 @@ set5_p <- IntRF.thesis::int_plot(
       max(df_set5$Yc + df_set5$Yr) # Set upper limit of y-axis
     ),
     n.breaks = 8 # Set number of y-axis breaks to 8
+  ) +
+  theme(
+    axis.title.x = element_text(size = 16),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.text.y = element_text(size = 14)
   )
 
 # Setting 6 data simulating
@@ -92,7 +98,7 @@ df_set6 <- set6(
   er_a = 0, er_b = 0.25
 )
 # Plot Y vs X
-set6_p <- IntRF.thesis::int_plot(
+set6_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   int_data = df_set6 %>%
     select(Yc, Yr, Xc, Xr),
@@ -114,6 +120,12 @@ set6_p <- IntRF.thesis::int_plot(
       max(df_set6$Yc + df_set6$Yr) # Set upper limit of y-axis
     ),
     n.breaks = 8 # Set number of y-axis breaks to 8
+  ) +
+  theme(
+    axis.title.x = element_text(size = 16),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.text.y = element_text(size = 14)
   )
 
 # export figures
@@ -121,19 +133,19 @@ set6_p <- IntRF.thesis::int_plot(
 # setting 4
 pdf(file = "./Analysis/Simulation/figs/set4_fig.pdf")
 set4_p +
-  theme(aspect.ratio=.4)
+  theme(aspect.ratio=.8)
 dev.off()
 
 # setting 5
 pdf(file = "./Analysis/Simulation/figs/set5_fig.pdf")
 set5_p +
-  theme(aspect.ratio=.4)
+  theme(aspect.ratio=.8)
 dev.off()
 
 # setting 6
 pdf(file = "./Analysis/Simulation/figs/set6_fig.pdf")
 set6_p +
-  theme(aspect.ratio=.4)
+  theme(aspect.ratio=.8)
 dev.off()
 
 # settings 4, 5, and 6

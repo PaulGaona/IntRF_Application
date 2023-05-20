@@ -43,7 +43,7 @@ minmax_stand_test <- minmax_stand[-samp_ex,]
 # Perform intrf model for Int RF and obtain results
 set.seed(1)
 
-irf_original <- IntRF.thesis::intrf(
+irf_original <- IntRF::intrf(
   int_resp = original_train[c(3,4)],
   cent_pred = original_train[1],
   ran_pred = original_train[2],
@@ -55,7 +55,7 @@ irf_original <- IntRF.thesis::intrf(
 irf_original_res <- irf_original$Results
 
 # Obtain accuracy metrics for Int RF
-met_irf_orig <- IntRF.thesis::acc_met(
+met_irf_orig <- IntRF::acc_met(
   cent_pred = irf_original_res$center_pred,
   cent_act = irf_original_res$center_actual,
   ran_pred = irf_original_res$range_pred,
@@ -93,7 +93,7 @@ met_rf_orig
 # Perform intrf model for Int RF and obtain results
 set.seed(1)
 
-irf_thesis_stand <- IntRF.thesis::intrf(
+irf_thesis_stand <- IntRF::intrf(
   int_resp = thesis_stand_train[c(3,4)],
   cent_pred = thesis_stand_train[1],
   ran_pred = thesis_stand_train[2],
@@ -105,7 +105,7 @@ irf_thesis_stand <- IntRF.thesis::intrf(
 irf_thesis_stand_res <- irf_thesis_stand$Results
 
 # Obtain accuracy metrics for Int RF
-met_irf_thesis <- IntRF.thesis::acc_met(
+met_irf_thesis <- IntRF::acc_met(
   cent_pred = irf_thesis_stand_res$center_pred,
   cent_act = irf_thesis_stand_res$center_actual,
   ran_pred = irf_thesis_stand_res$range_pred,
@@ -143,7 +143,7 @@ met_rf_thesis
 # Perform intrf model for Int RF and obtain results
 set.seed(1)
 
-irf_rms_stand <- IntRF.thesis::intrf(
+irf_rms_stand <- IntRF::intrf(
   int_resp = rms_stand_train[c(3,4)],
   cent_pred = rms_stand_train[1],
   ran_pred = rms_stand_train[2],
@@ -155,7 +155,7 @@ irf_rms_stand <- IntRF.thesis::intrf(
 irf_rms_stand_res <- irf_rms_stand$Results
 
 # Obtain accuracy metrics for Int RF
-met_irf_rms <- IntRF.thesis::acc_met(
+met_irf_rms <- IntRF::acc_met(
   cent_pred = irf_rms_stand_res$center_pred,
   cent_act = irf_rms_stand_res$center_actual,
   ran_pred = irf_rms_stand_res$range_pred,
@@ -193,7 +193,7 @@ met_rf_rms
 # Perform intrf model for Int RF and obtain results
 set.seed(1)
 
-irf_minmax_stand <- IntRF.thesis::intrf(
+irf_minmax_stand <- IntRF::intrf(
   int_resp = minmax_stand_train[c(3,4)],
   cent_pred = minmax_stand_train[1],
   ran_pred = minmax_stand_train[2],
@@ -205,7 +205,7 @@ irf_minmax_stand <- IntRF.thesis::intrf(
 irf_minmax_stand_res <- irf_minmax_stand$Results
 
 # Obtain accuracy metrics for Int RF
-met_irf_minmax <- IntRF.thesis::acc_met(
+met_irf_minmax <- IntRF::acc_met(
   cent_pred = irf_minmax_stand_res$center_pred,
   cent_act = irf_minmax_stand_res$center_actual,
   ran_pred = irf_minmax_stand_res$range_pred,

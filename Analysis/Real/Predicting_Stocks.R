@@ -1,4 +1,7 @@
 ################################################################################
+# Sourcing functions required
+source("./Functions/CCRM_Pred.R")
+################################################################################
 # stock locations
 # DJI : 1,7
 # JPM : 4, 10
@@ -34,7 +37,7 @@ yprice_test_jpm <- price_test_jpm[c(1, 2)]
 
 # Use the IntRF package to train a random forest model for interval regression
 set.seed(1)
-int_price_rf_jpm <- IntRF.thesis::intrf(
+int_price_rf_jpm <- IntRF::intrf(
   int_resp = yprice_train_jpm,
   cent_pred = xcprice_train_jpm,
   ran_pred = xrprice_train_jpm,
@@ -47,7 +50,7 @@ int_price_rf_jpm <- IntRF.thesis::intrf(
 res_jpm <- int_price_rf_jpm$Results
 
 # Calculate accuracy metrics for the model
-met_irf_jpm <- IntRF.thesis::acc_met(
+met_irf_jpm <- IntRF::acc_met(
   cent_pred = res_jpm$center_pred,
   cent_act = res_jpm$center_actual,
   ran_pred = res_jpm$range_pred,
@@ -65,7 +68,7 @@ met_irf_jpm
 # Use the mvpart function to train an interval regression tree model
 set.seed(1)
 ydat_jpm <- price_train_stand[names(yprice_train_jpm)]
-irt_jpm <- IntRF.thesis::mvpart(data.matrix(ydat_jpm) ~ .,
+irt_jpm <- IntRF::mvpart(data.matrix(ydat_jpm) ~ .,
                           data = price_train_jpm,
                           plot.add = FALSE,
                           xv = "none"
@@ -76,7 +79,7 @@ ctpred_jpm <- predict(irt_jpm, newdata = price_test_jpm, type = "matrix")[, 1]
 rtpred_jpm <- predict(irt_jpm, newdata = price_test_jpm, type = "matrix")[, 2]
 
 # Calculate accuracy metrics for the model
-met_tree_jpm <- IntRF.thesis::acc_met(
+met_tree_jpm <- IntRF::acc_met(
   ctpred_jpm,
   t(yprice_test_jpm[1]),
   rtpred_jpm,
@@ -107,7 +110,7 @@ pcrf_jpm <- predict(crf_jpm, price_test_jpm)
 prrf_jpm <- predict(rrf_jpm, price_test_jpm)
 
 # calculate accuracy metrics for the RF models
-met_rf_jpm <- IntRF.thesis::acc_met(
+met_rf_jpm <- IntRF::acc_met(
   pcrf_jpm,
   t(yprice_test_jpm[1]),
   prrf_jpm,
@@ -137,10 +140,10 @@ pred_ccrm_jpm <- ccrm_pred(
 )
 
 # calculate accuracy metrics for the CCRM model
-met_ccrm_jpm <- IntRF.thesis::acc_met(
+met_ccrm_jpm <- IntRF::acc_met(
   t(pred_ccrm_jpm$center_pred),
   t(yprice_test_jpm[1]),
-  t(pred_ccrm$range_pred),
+  t(pred_ccrm_jpm$range_pred),
   t(yprice_test_jpm[2]),
   yprice_train_jpm
 )
@@ -184,7 +187,7 @@ yprice_test_ba <- price_test_ba[c(1, 2)]
 
 # Use the IntRF package to train a random forest model for interval regression
 set.seed(1)
-int_price_rf_ba <- IntRF.thesis::intrf(
+int_price_rf_ba <- IntRF::intrf(
   int_resp = yprice_train_ba,
   cent_pred = xcprice_train_ba,
   ran_pred = xrprice_train_ba,
@@ -197,7 +200,7 @@ int_price_rf_ba <- IntRF.thesis::intrf(
 res_ba <- int_price_rf_ba$Results
 
 # Calculate accuracy metrics for the model
-met_irf_ba <- IntRF.thesis::acc_met(
+met_irf_ba <- IntRF::acc_met(
   cent_pred = res_ba$center_pred,
   cent_act = res_ba$center_actual,
   ran_pred = res_ba$range_pred,
@@ -215,7 +218,7 @@ met_irf_ba
 # Use the mvpart function to train an interval regression tree model
 set.seed(1)
 ydat_ba <- price_train_ba[names(yprice_train_ba)]
-irt_ba <- IntRF.thesis::mvpart(data.matrix(ydat_ba) ~ .,
+irt_ba <- IntRF::mvpart(data.matrix(ydat_ba) ~ .,
                          data = price_train_ba,
                          plot.add = FALSE,
                          xv = "none"
@@ -225,7 +228,7 @@ ctpred_ba <- predict(irt_ba, newdata = price_test_ba, type = "matrix")[, 1]
 rtpred_ba <- predict(irt_ba, newdata = price_test_ba, type = "matrix")[, 2]
 
 # Calculate accuracy metrics for the model
-met_tree_ba <- IntRF.thesis::acc_met(
+met_tree_ba <- IntRF::acc_met(
   ctpred_ba,
   t(yprice_test_ba[1]),
   rtpred_ba,
@@ -256,7 +259,7 @@ pcrf_ba <- predict(crf_ba, price_test_ba)
 prrf_ba <- predict(rrf_ba, price_test_ba)
 
 # calculate accuracy metrics for the RF models
-met_rf_ba <- IntRF.thesis::acc_met(
+met_rf_ba <- IntRF::acc_met(
   pcrf_ba,
   t(yprice_test_ba[1]),
   prrf_ba,
@@ -277,7 +280,7 @@ simccrm_ba <- iRegression::ccrm("c.BA ~ c.DJI",
   data = price_train_ba
 )
 
-# predict  JPM stock price using the CCRM model
+# predict  BA stock price using the CCRM model
 pred_ccrm_ba <- ccrm_pred(
   cent_coef = simccrm_ba[[1]],
   cent_pred = as.matrix(price_test_ba[3]),
@@ -286,10 +289,10 @@ pred_ccrm_ba <- ccrm_pred(
 )
 
 # calculate accuracy metrics for the CCRM model
-met_ccrm_ba <- IntRF.thesis::acc_met(
+met_ccrm_ba <- IntRF::acc_met(
   t(pred_ccrm_ba$center_pred),
   t(yprice_test_ba[1]),
-  t(pred_ccrm$range_pred),
+  t(pred_ccrm_ba$range_pred),
   t(yprice_test_ba[2]),
   yprice_train_ba
 )
@@ -340,7 +343,7 @@ yprice_test_ge <- price_test_ge[c(1, 2)]
 
 # Use the IntRF package to train a random forest model for interval regression
 set.seed(1)
-int_price_rf_ge <- IntRF.thesis::intrf(
+int_price_rf_ge <- IntRF::intrf(
   int_resp = yprice_train_ge,
   cent_pred = xcprice_train_ge,
   ran_pred = xrprice_train_ge,
@@ -353,7 +356,7 @@ int_price_rf_ge <- IntRF.thesis::intrf(
 res_ge <- int_price_rf_ge$Results
 
 # Calculate accuracy metrics for the model
-met_irf_ge <- IntRF.thesis::acc_met(
+met_irf_ge <- IntRF::acc_met(
   cent_pred = res_ge$center_pred,
   cent_act = res_ge$center_actual,
   ran_pred = res_ge$range_pred,
@@ -371,7 +374,7 @@ met_irf_ge
 # Use the mvpart function to train an interval regression tree model
 set.seed(1)
 ydat_ge <- price_train_ge[names(yprice_train_ge)]
-irt_ge <- IntRF.thesis::mvpart(data.matrix(ydat_ge) ~ .,
+irt_ge <- IntRF::mvpart(data.matrix(ydat_ge) ~ .,
   data = price_train_ge,
   plot.add = FALSE,
   xv = "none"
@@ -382,7 +385,7 @@ ctpred_ge <- predict(irt_ge, newdata = price_test_ge, type = "matrix")[, 1]
 rtpred_ge <- predict(irt_ge, newdata = price_test_ge, type = "matrix")[, 2]
 
 # Calculate accuracy metrics for the model
-met_tree_ge <- IntRF.thesis::acc_met(
+met_tree_ge <- IntRF::acc_met(
   ctpred_ge,
   t(yprice_test_ge[1]),
   rtpred_ge,
@@ -413,7 +416,7 @@ pcrf_ge <- predict(crf_ge, price_test_ge)
 prrf_ge <- predict(rrf_ge, price_test_ge)
 
 # calculate accuracy metrics for the RF models
-met_rf_ge <- IntRF.thesis::acc_met(
+met_rf_ge <- IntRF::acc_met(
   pcrf_ge,
   t(yprice_test_ge[1]),
   prrf_ge,
@@ -443,10 +446,10 @@ pred_ccrm_ge <- ccrm_pred(
 )
 
 # calculate accuracy metrics for the CCRM model
-met_ccrm_ge <- IntRF.thesis::acc_met(
+met_ccrm_ge <- IntRF::acc_met(
   t(pred_ccrm_ge$center_pred),
   t(yprice_test_ge[1]),
-  t(pred_ccrm$range_pred),
+  t(pred_ccrm_ge$range_pred),
   t(yprice_test_ge[2]),
   yprice_train_ge
 )
@@ -466,6 +469,6 @@ combined_res_ge
 ################################################################################
 
 ################################################################################
-round(combined_res_jpm, 3)
-round(combined_res_ba, 3)
-round(combined_res_ge, 3)
+round(combined_res_jpm, 2)
+round(combined_res_ba, 2)
+round(combined_res_ge, 2)

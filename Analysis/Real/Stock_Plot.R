@@ -1,13 +1,13 @@
 # Load necessary packages
 library("ggplot2")
 library("dplyr")
-library("IntRF.thesis")
+library("IntRF")
 library("ggpubr")
 library("scales")
 library("gridExtra")
 
 # Plot JPM vs DJI
-jpm_p <- IntRF.thesis::int_plot(
+jpm_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   int_data = prices %>%
     dplyr::select(c.JPM, r.JPM, c.DJI, r.DJI),
@@ -17,10 +17,10 @@ jpm_p <- IntRF.thesis::int_plot(
 ) +
   ggplot2::scale_x_continuous(
     limits = c(
-      min(prices$c.DJI) - 750, # Set lower limit of x-axis
-      max(prices$c.DJI) + 750
+      min(prices$c.DJI) - 250, # Set lower limit of x-axis
+      max(prices$c.DJI) + 250
     ), # Set upper limit of x-axis
-    n.breaks = 10, # Set number of x-axis breaks to 10
+    n.breaks = 6, # Set number of x-axis breaks to 10
     labels = scales::label_wrap(6) # Wrap x-axis labels to fit within 6 lines
   ) +
   ggplot2::scale_y_continuous(
@@ -29,11 +29,17 @@ jpm_p <- IntRF.thesis::int_plot(
       max(prices$c.JPM) + 10 # Set upper limit of y-axis
     ),
     n.breaks = 8 # Set number of y-axis breaks to 8
-    )
+    ) +
+  theme(
+    axis.title.x = element_text(size = 16),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.text.y = element_text(size = 14)
+  )
 jpm_p
 
 # Plot BA vs DJI
-ba_p <- IntRF.thesis::int_plot(
+ba_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   prices %>%
     select(c.BA, r.BA, c.DJI, r.DJI),
@@ -44,9 +50,9 @@ ba_p <- IntRF.thesis::int_plot(
   ggplot2::scale_x_continuous(
     limits = c(
       min(prices$c.DJI) - 750, # Set lower limit of x-axis
-      max(prices$c.DJI) + 750
+      max(prices$c.DJI) + 250
     ), # Set upper limit of x-axis
-    n.breaks = 10, # Set number of x-axis breaks to 10
+    n.breaks = 6, # Set number of x-axis breaks to 10
     labels = scales::label_wrap(6) # Wrap x-axis labels to fit within 6 lines
   ) +
   ggplot2::scale_y_continuous(
@@ -55,10 +61,16 @@ ba_p <- IntRF.thesis::int_plot(
       max(prices$c.BA) + 10 # Set upper limit of y-axis
     ),
     n.breaks = 8 # Set number of y-axis breaks to 8
+  ) +
+  theme(
+    axis.title.x = element_text(size = 16),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.text.y = element_text(size = 14)
   )
-
+ba_p
 # Plot GE vs DJI
-ge_p <- IntRF.thesis::int_plot(
+ge_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   int_data = prices %>%
     select(c.GE, r.GE, c.DJI, r.DJI),
@@ -68,10 +80,10 @@ ge_p <- IntRF.thesis::int_plot(
 ) +
   ggplot2::scale_x_continuous(
     limits = c(
-      min(prices$c.DJI) - 750, # Set lower limit of x-axis
-      max(prices$c.DJI) + 750 # Set upper limit of x-axis
+      min(prices$c.DJI) - 250, # Set lower limit of x-axis
+      max(prices$c.DJI) + 250 # Set upper limit of x-axis
     ),
-    n.breaks = 10, # Set number of x-axis breaks to 10
+    n.breaks = 6, # Set number of x-axis breaks to 10
     labels = scales::label_wrap(6) # Wrap x-axis labels to fit within 6 lines
   ) +
   ggplot2::scale_y_continuous(
@@ -80,8 +92,14 @@ ge_p <- IntRF.thesis::int_plot(
       max(prices$c.GE) + 10 # Set upper limit of y-axis
     ),
     n.breaks = 8 # Set number of y-axis breaks to 8
+  ) +
+  theme(
+    axis.title.x = element_text(size = 16),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.text.y = element_text(size = 14)
   )
-
+ge_p
 # export figures
 
 # export jpm

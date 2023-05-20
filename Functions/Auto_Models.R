@@ -19,7 +19,7 @@ auto_models <- function(df, dat_perc = .8){
   xrtest <- dftest %>% dplyr::select(starts_with("Xr"))
   ##############################################################################
   #irf
-  irf <- IntRF.thesis::intrf(int_resp = ytrain,
+  irf <- IntRF::intrf(int_resp = ytrain,
                              cent_pred = xctrain,
                              ran_pred = xrtrain,
                              train = dftrain,
@@ -28,7 +28,7 @@ auto_models <- function(df, dat_perc = .8){
   # obtain results
   irf_res <- as.data.frame(irf$Results)
   # obtain accuracy metrics
-  met_irf <- IntRF.thesis::acc_met(cent_pred = irf_res$center_pred,
+  met_irf <- IntRF::acc_met(cent_pred = irf_res$center_pred,
                                       cent_act = irf_res$center_actual,
                                       ran_pred = irf_res$range_pred,
                                       ran_act = irf_res$range_actual,
@@ -36,7 +36,7 @@ auto_models <- function(df, dat_perc = .8){
   ##############################################################################
   #irt
   ydat <- dftrain[names(ytrain)]
-  irt <- IntRF.thesis::mvpart(data.matrix(ydat) ~ .,
+  irt <- IntRF::mvpart(data.matrix(ydat) ~ .,
                         data = dftrain,
                         plot.add = FALSE,
                         xv = "none"
@@ -45,7 +45,7 @@ auto_models <- function(df, dat_perc = .8){
   ctpred <- predict(irt, newdata = dftest, type = "matrix")[, 1]
   rtpred <- predict(irt, newdata = dftest, type = "matrix")[, 2]
   # obtain accuracy metrics
-  met_tree <- IntRF.thesis::acc_met(ctpred,
+  met_tree <- IntRF::acc_met(ctpred,
                                     t(ytest[1]),
                                     rtpred,
                                     t(ytest[2]),
@@ -68,7 +68,7 @@ auto_models <- function(df, dat_perc = .8){
   pcrf <- predict(crf,dftest)
   prrf <- predict(rrf,dftest)
   # obtain accuracy metrics
-  met_rf <- IntRF.thesis::acc_met(pcrf,
+  met_rf <- IntRF::acc_met(pcrf,
                                   t(ytest[1]),
                                   prrf,
                                   t(ytest[2]),
@@ -96,7 +96,7 @@ auto_models <- function(df, dat_perc = .8){
                          ran_pred = as.matrix(xrtest)
   )
   # obtain accuracy metrics
-  met_ccrm <- IntRF.thesis::acc_met(pred_ccrm$center_pred,
+  met_ccrm <- IntRF::acc_met(pred_ccrm$center_pred,
                                     t(yctest),
                                     pred_ccrm$range_pred,
                                     t(yrtest),

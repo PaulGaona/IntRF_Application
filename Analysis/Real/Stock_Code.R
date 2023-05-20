@@ -1,3 +1,9 @@
+install.packages("iRegression")
+install.packages("randomForest")
+install.packages("tidyquant")
+install.packages("tidyverse")
+library(devtools)
+devtools::install_github("PaulGaona/IntRF")
 # packages needed
 # provides functions for retrieving and analyzing financial data
 library(tidyquant)
@@ -6,7 +12,7 @@ library(tidyverse)
 
 # functions for code comparisons
 # provides a function for the interaction random forest
-library(IntRF.thesis)
+library(IntRF)
 # provides a function for random forests
 library(randomForest)
 # provides a function for interactive regression
@@ -37,17 +43,10 @@ prices <- prices %>%
   unchop(everything()) %>%
   rename(c.DJI = `c.^DJI`) %>%
   rename(r.DJI = `r.^DJI`)
-
-# scale data by individual variable variance
-s_prices <- as.data.frame(scale(prices,
-  center = FALSE,
-  scale = apply(prices, 2, sd, na.rm = TRUE)
-))
-
 # split to training and testing
 set.seed(1)
 # create a sample index for training data
-samp <- sort(sample(nrow(s_prices), nrow(s_prices) * .8))
+samp <- sort(sample(nrow(prices), nrow(prices) * .8))
 price_train <- prices[samp, ] # select training data
 price_test <- prices[-samp, ] # select testing data
 price_sd <- apply(price_train, 2, sd, na.rm = TRUE)

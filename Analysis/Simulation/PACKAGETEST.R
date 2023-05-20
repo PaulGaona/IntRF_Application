@@ -7,13 +7,13 @@ library("scales")
 library("gridExtra")
 # functions for code comparisons
 # provides a function for the interval-valued random forest
-library("IntRF.thesis")
+library("IntRF")
 
 name(prices)
 head(prices)
 
 # Plot GE vs DJI
-GE_p <- IntRF.thesis::int_plot(
+GE_p <- IntRF::int_plot(
   # Select relevant columns from prices dataframe
   int_data = prices %>%
     select(c.GE, r.GE, c.DJI, r.DJI),
