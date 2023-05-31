@@ -17,19 +17,27 @@ jpm_p <- IntRF::int_plot(
 ) +
   ggplot2::scale_x_continuous(
     limits = c(
-      min(prices$c.DJI) - 250, # Set lower limit of x-axis
+      # Set lower limit of x-axis
+      min(prices$c.DJI) - 250,
+      # Set upper limit of x-axis
       max(prices$c.DJI) + 250
-    ), # Set upper limit of x-axis
-    n.breaks = 6, # Set number of x-axis breaks to 10
-    labels = scales::label_wrap(6) # Wrap x-axis labels to fit within 6 lines
+    ),
+    # Set number of x-axis breaks to 10
+    n.breaks = 6,
+    # Wrap x-axis labels to fit within 6 lines
+    labels = scales::label_wrap(6)
   ) +
   ggplot2::scale_y_continuous(
     limits = c(
-      min(prices$c.JPM) - 10, # Set lower limit of y-axis
-      max(prices$c.JPM) + 10 # Set upper limit of y-axis
+      # Set lower limit of y-axis
+      min(prices$c.JPM) - 10,
+      # Set upper limit of y-axis
+      max(prices$c.JPM) + 10
     ),
-    n.breaks = 8 # Set number of y-axis breaks to 8
-    ) +
+    # Set number of y-axis breaks to 8
+    n.breaks = 8
+  ) +
+  # Set title and text size of x and y axis
   theme(
     axis.title.x = element_text(size = 16),
     axis.text.x = element_text(size = 14),
@@ -49,19 +57,27 @@ ba_p <- IntRF::int_plot(
 ) +
   ggplot2::scale_x_continuous(
     limits = c(
-      min(prices$c.DJI) - 750, # Set lower limit of x-axis
+      # Set lower limit of x-axis
+      min(prices$c.DJI) - 750,
+      # Set upper limit of x-axis
       max(prices$c.DJI) + 250
-    ), # Set upper limit of x-axis
-    n.breaks = 6, # Set number of x-axis breaks to 10
-    labels = scales::label_wrap(6) # Wrap x-axis labels to fit within 6 lines
+    ),
+    # Set number of x-axis breaks to 10
+    n.breaks = 6,
+    # Wrap x-axis labels to fit within 6 lines
+    labels = scales::label_wrap(6)
   ) +
   ggplot2::scale_y_continuous(
     limits = c(
-      min(prices$c.BA) - 10, # Set lower limit of y-axis
-      max(prices$c.BA) + 10 # Set upper limit of y-axis
+      # Set lower limit of y-axis
+      min(prices$c.BA) - 10,
+      # Set upper limit of y-axis
+      max(prices$c.BA) + 10
     ),
-    n.breaks = 8 # Set number of y-axis breaks to 8
+    # Set number of y-axis breaks to 8
+    n.breaks = 8
   ) +
+  # Set title and text size of x and y axis
   theme(
     axis.title.x = element_text(size = 16),
     axis.text.x = element_text(size = 14),
@@ -80,19 +96,27 @@ ge_p <- IntRF::int_plot(
 ) +
   ggplot2::scale_x_continuous(
     limits = c(
-      min(prices$c.DJI) - 250, # Set lower limit of x-axis
-      max(prices$c.DJI) + 250 # Set upper limit of x-axis
+      # Set lower limit of x-axis
+      min(prices$c.DJI) - 250,
+      # Set upper limit of x-axis
+      max(prices$c.DJI) + 250
     ),
-    n.breaks = 6, # Set number of x-axis breaks to 10
-    labels = scales::label_wrap(6) # Wrap x-axis labels to fit within 6 lines
+    # Set number of x-axis breaks to 6
+    n.breaks = 6,
+    # Wrap x-axis labels to fit within 6 lines
+    labels = scales::label_wrap(6)
   ) +
   ggplot2::scale_y_continuous(
     limits = c(
-      min(prices$c.GE) - 10, # Set lower limit of y-axis
-      max(prices$c.GE) + 10 # Set upper limit of y-axis
+      # Set lower limit of y-axis
+      min(prices$c.GE) - 10,
+      # Set upper limit of y-axis
+      max(prices$c.GE) + 10
     ),
-    n.breaks = 8 # Set number of y-axis breaks to 8
+    # Set number of y-axis breaks to 8
+    n.breaks = 8
   ) +
+  # Set title and text size of x and y axis
   theme(
     axis.title.x = element_text(size = 16),
     axis.text.x = element_text(size = 14),
@@ -105,21 +129,21 @@ ge_p
 # export jpm
 pdf(file = "./Analysis/Real/figs/jpm_fig.pdf")
 jpm_p +
-  theme(aspect.ratio=1)
+  theme(aspect.ratio = 1)
 dev.off()
 # export ba
 pdf(file = "./Analysis/Real/figs/ba_fig.pdf")
 ba_p +
-  theme(aspect.ratio=1)
+  theme(aspect.ratio = 1)
 dev.off()
 # export ge
 pdf(file = "./Analysis/Real/figs/ge_fig.pdf")
 ge_p +
-  theme(aspect.ratio=1)
+  theme(aspect.ratio = 1)
 dev.off()
 # export all 3
- pdf(file = "./Analysis/Real/figs/stock_fig.pdf")
- gridExtra::grid.arrange(jpm_p, ba_p, ge_p,
+pdf(file = "./Analysis/Real/figs/stock_fig.pdf")
+gridExtra::grid.arrange(jpm_p, ba_p, ge_p,
   ncol = 1,
   widths = unit(10, c("cm")),
   heights = c(
@@ -127,5 +151,5 @@ dev.off()
     unit(10, c("cm")),
     unit(10, c("cm"))
   )
- )
- dev.off()
+)
+dev.off()

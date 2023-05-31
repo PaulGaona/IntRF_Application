@@ -12,8 +12,8 @@ int_price_rf <- IntRF::intrf(
   int_resp = yprice_train,
   cent_pred = xcprice_train,
   ran_pred = xrprice_train,
-  train = price_train_stand ,
-  test = price_test_stand ,
+  train = price_train_stand,
+  test = price_test_stand,
   mtry_int = ncol(xcprice_train)
 )
 
@@ -31,17 +31,24 @@ met_irf_dji <- IntRF::acc_met(
 # Print output for Int RF accuracy metrics
 met_irf_dji
 
-# Perform mvpart model for Int Tree and obtain predictions
+# Perform mvpart model for Int Tree and obtain
+# predictions
 set.seed(1)
 
 ydat <- price_train_stand[names(yprice_train)]
 irt <- IntRF::mvpart(data.matrix(ydat) ~ .,
-  data = price_train_stand ,
+  data = price_train_stand,
   plot.add = FALSE,
   xv = "none"
 )
-ctpred <- predict(irt, newdata = price_test_stand, type = "matrix")[, 1]
-rtpred <- predict(irt, newdata = price_test_stand, type = "matrix")[, 2]
+ctpred <- predict(irt,
+  newdata = price_test_stand,
+  type = "matrix"
+)[, 1]
+rtpred <- predict(irt,
+  newdata = price_test_stand,
+  type = "matrix"
+)[, 2]
 
 # Obtain accuracy metrics for Int Tree
 met_tree_dji <- IntRF::acc_met(
@@ -55,10 +62,15 @@ met_tree_dji <- IntRF::acc_met(
 # Print output for Int Tree accuracy metrics
 met_tree_dji
 
-# Perform randomForest model for RF and obtain predictions
+# Perform randomForest model for RF and obtain
+# predictions
 set.seed(1)
-crf <- randomForest(c.DJI ~ ., data = dplyr::select(price_train_stand , -c(r.DJI)))
-rrf <- randomForest(r.DJI ~ ., data = dplyr::select(price_train_stand , -c(c.DJI)))
+crf <- randomForest(c.DJI ~ .,
+  data = dplyr::select(price_train_stand, -c(r.DJI))
+)
+rrf <- randomForest(r.DJI ~ .,
+  data = dplyr::select(price_train_stand, -c(c.DJI))
+)
 pcrf <- predict(crf, price_test_stand)
 prrf <- predict(rrf, price_test_stand)
 
@@ -98,7 +110,8 @@ met_ccrm_dji <- acc_met(
   yprice_train
 )
 
-# Combine accuracy metrics from all models into a single dataframe
+# Combine accuracy metrics from all models into
+# a single dataframe
 combined_res_dji <- data.frame(
   IRF = t(met_irf_dji),
   IRT = t(met_tree_dji),
