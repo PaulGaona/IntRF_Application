@@ -1,5 +1,15 @@
 # Data from Stock_Code.R
+# train data
+# select dependent variables for training data
+yprice_train <- price_train_stand[c(1, 7)]
+# select independent variables related to center for training data
+xcprice_train <- price_train_stand[2:6]
+# select independent variables related to range for training data
+xrprice_train <- price_train_stand[8:12]
 
+# test data
+# select dependent variables for testing data
+yprice_test <- price_test_stand[c(1, 7)]
 # Load required packages and set seed value
 library(IntRF)
 library(randomForest)

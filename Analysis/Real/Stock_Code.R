@@ -53,15 +53,3 @@ price_sd <- apply(price_train, 2, sd, na.rm = TRUE)
 # standardizing training and testing
 price_train_stand <- sweep(price_train,2,price_sd,FUN="/")
 price_test_stand <- sweep(price_test,2,price_sd,FUN="/")
-
-# train data
-# select dependent variables for training data
-yprice_train <- price_train_stand[c(1, 7)]
-# select independent variables related to center for training data
-xcprice_train <- price_train_stand[2:6]
-# select independent variables related to range for training data
-xrprice_train <- price_train_stand[8:12]
-
-# test data
-# select dependent variables for testing data
-yprice_test <- price_test_stand[c(1, 7)]
