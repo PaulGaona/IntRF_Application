@@ -4,7 +4,7 @@
 
 The goal of IntRF_Application is to run tree-based regression for interval-valued data and provide a more detailed explanation on how to use the code for simulations and a real data example. I plan on providing a step-by-step process for each file.
 
-All files were used at one point for my simulation and real data analysis of my [Ms Thesis at Utah State University](https://digitalcommons.usu.edu/etd/8853/). There is no guarantee that every package will be cran compliant, for new versions of R (2022.12.0).
+All files were used at one point for my simulation and real data analysis of my [MS Thesis at Utah State University](https://digitalcommons.usu.edu/etd/8853/). There is no guarantee that every package will be cran compliant, for new versions of R (2022.12.0).
 
 As the project title states this is a project based on the application of a package I developed IntRf.
 
