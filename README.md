@@ -15,4 +15,4 @@ Please refer to the README of IntRF for details about ***installation***, ***min
 
 We are motivated in implementing a new machine learning model for interval-valued data. An introduction to interval-valued data can be found at [Diamond 1990](https://www.sciencedirect.com/science/article/pii/0022247X9090353H) and [Billard 2000](https://link.springer.com/chapter/10.1007/978-3-642-59789-3_58). As well as a more recent journal introducing machine learning for interval-valued data [Chacon 2021](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8067438/).
 
-Our aim is to develop a new model that builds on the natural structure of an interval $\[x^{L}, x^{U}\]$ = $\[x^{C} \pm x^{r} \]$. Please see (INSERT LINK HERE) for a more detailed discussion on the preliminaries and the application of the model.
+Our aim is to develop a new model that builds on the natural structure of an interval $\[x^{L}, x^{U}\]$ = $\[x^{C} \pm x^{r} \]$. Please see [Gaona-Partida MS Thesis](https://digitalcommons.usu.edu/cgi/viewcontent.cgi?article=10006&context=etd) for a more detailed discussion on the preliminaries and the application of the model.
